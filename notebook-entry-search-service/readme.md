@@ -70,5 +70,10 @@ curl --location --request GET 'http://localhost:8080/similarwords?entryID=?&word
 curl --location --request POST 'http://localhost:8080/file/similarwords?word=?'`
 
 #### Testing
-This application has been tested against 1GB file. It takes approximately 40 seconds to 50 seconds to get the data
-'labforward_notebook_entry.txt' is the file for testing, test it by adding more content to it
+- This application has been tested against 1GB file. It takes approximately 40 seconds to 50 seconds to get the data
+- 'labforward_notebook_entry.txt' is the file for testing, test it by adding more content to it
+- Unit test cases have been added for all the classes
+
+#### Scope of improvements
+- Logging
+- Exception handling
