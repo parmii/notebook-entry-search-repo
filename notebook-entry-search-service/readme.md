@@ -11,13 +11,13 @@ For building and running the application you need:
 ## Approach
 - Created one microservice notebookentry-search-service
 - Since we are keeping the data in memory, both the APIs should be up for proper function
-- Full API documentation for tick-consumer-service is available on http://localhost:8080/v3/api-docs
 - Embedded H2 database has been used to store notebooks and its entries
 - schema.sql and data.sql are loaded while application intialization and dummy notebooks with notebook entries are created
+- For entries such as very big files, different APIs have been exposed, which are /file/frequency and /file/similarwords
 
 ## Assumptions
 - Notebooks and notebook entries already exist in the system
-- Levenshtein Distance is case-senstive. For eg. Word and WORD are not similar words
+- Levenshtein Distance is case-sensitive. For eg. Word and WORD are not similar words
 
 ## Running the application locally
 
@@ -58,13 +58,16 @@ The REST APIs to the Notebook Entry Search Service are described below.
 curl --location --request GET 'http://localhost:8080/frequency?entryID=?&word=?'  
 
 #### Get frequency of word in notebook entry as a big file
-`GET file/frequency`
+`GET /file/frequency`
 curl --location --request POST 'http://localhost:8080/file/frequency?word=?'`
 
-
+#### Get list of similar words in notebook entry
 `GET /similarwords`
 curl --location --request GET 'http://localhost:8080/similarwords?entryID=?&word=?'  
 
-#### Get frequency of word in notebook entry as a big file
-`GET file/similarwords`
+#### Get  list of similar words in notebook entry as a big file
+`GET /file/similarwords`
 curl --location --request POST 'http://localhost:8080/file/similarwords?word=?'`
+
+#### Testing
+This application has been tested against 1GB file. It takes approximately 40 seconds to 50 seconds to get the data
