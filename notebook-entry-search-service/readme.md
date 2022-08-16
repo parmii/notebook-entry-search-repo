@@ -43,7 +43,7 @@ Application can be accessed using url http://localhost:8080/
 
 Swagger UI: http://localhost:8080/swagger-ui/index.html
 
-Detailed API Documentation: http://localhost:8080/v2/api-docs
+Detailed API Documentation: http://localhost:8080/v3/api-docs
 
 
 
@@ -71,3 +71,4 @@ curl --location --request POST 'http://localhost:8080/file/similarwords?word=?'`
 
 #### Testing
 This application has been tested against 1GB file. It takes approximately 40 seconds to 50 seconds to get the data
+'labforward_notebook_entry.txt' is the file for testing, test it by adding more content to it
