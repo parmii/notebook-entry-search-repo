@@ -11,7 +11,7 @@ For building and running the application you need:
 ## Approach
 - Created one microservice notebookentry-search-service
 - Since we are keeping the data in memory, both the APIs should be up for proper function
-- Full API documentation for tick-consumer-service is available on http://localhost:8080/api-docs.html
+- Full API documentation for tick-consumer-service is available on http://localhost:8080/v3/api-docs
 - Embedded H2 database has been used to store notebooks and its entries
 - schema.sql and data.sql are loaded while application intialization and dummy notebooks with notebook entries are created
 
