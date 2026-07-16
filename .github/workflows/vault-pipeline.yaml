@@ -1,0 +1,42 @@
+name: "DTS Microservices Enterprise CD Pipeline"
+
+# Trigger this workflow every time someone pushes code to the main branch
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  secure-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Codebase"
+        uses: actions/checkout@v4
+
+      # 🔐 Step 1 & 2: Authenticate with Vault & Fetch secrets into memory
+      - name: "Fetch Secrets from Vault Enterprise"
+        uses: hashicorp/vault-action@v3
+        with:
+          # Your self-hosted corporate Vault endpoint url (accessible by the runner)
+          url: http://dts.local 
+          method: approle
+          roleId: ${{ secrets.VAULT_ROLE_ID }}       # Pulled securely from GitHub Secrets
+          secretId: ${{ secrets.VAULT_SECRET_ID }}   # Pulled securely from GitHub Secrets
+          exportEnv: true                            # Inject variables directly into runner memory
+          secrets: |
+            secret/data/production/legacy-app-1 username | APP_DB_USERNAME ;
+            secret/data/production/legacy-app-1 password | APP_DB_PASSWORD
+
+      # 🚀 Step 3: Run your tests/builds using the transient memory variables
+      - name: "Execute DTS Microservice Integration Tests"
+        run: |
+          echo "Checking environment status..."
+          # Your microservice build script automatically grabs the variables from memory
+          echo "Starting application context for user: $APP_DB_USERNAME"
+          
+          # Simulate compilation testing loop
+          if [ "$APP_DB_USERNAME" = "app_admin" ]; then
+             echo "✅ Success: App authenticated via dynamic Vault memory placeholders!"
+          else
+             echo "❌ Error: Security context block missing!"
+             exit 1
+          fi
